@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+
+<h2 id="using-place-endpoint">Using the place endpoint</h2>
+<p>Here, locations for events are listed. Events in each location can be found at the
+<code>event</code> endpoint using the query parameter <code>location</code>. Locations are added from Google Maps by the users.</p>
+<h4 id="place-text">Place text</h4>
+<p>To find places that contain a specific string, use the query parameter <code>text</code>.</p>
+<p>Example:</p>
+<pre><code>place/?text=tori</code></pre>
+<p><a href="?text=tori" title="json">See the result</a></p>
+<h4 id="ordering">Ordering</h4>
+<p>Default ordering is decreasing order by the number of events found.
+    You may also order results by <code>name</code>, <code>street_address</code> or <code>postal_code</code>.
+    For example:</p>
+<pre><code>place/?sort=name
+</code></pre>
+<p><a href="?sort=name" title="json">See the result</a></p>
+<h4 id="showing-all-places">Showing all places</h4>
+<p>By default, only those locations which have listed events are
+displayed. You may display locations with zero <code>n_events</code> with the
+    query parameter <code>show_all_places</code>.</p>
+
+    </div>
+</div>

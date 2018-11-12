@@ -1,0 +1,37 @@
+language: python
+python:
+- '3.4'
+
+cache:
+  directories:
+    - $HOME/.cache/pip
+
+env:
+- DJANGO=Django>=1.9
+sudo: false
+addons:
+  postgresql: '9.4'
+  apt:
+    packages:
+      postgresql-9.4-postgis-2.3
+
+install:
+- pip install --upgrade pip
+- pip install codecov pytest-cov -r requirements.txt
+
+before_script:
+- psql template1 -c 'create extension hstore;'
+- psql template1 -c 'create extension postgis;'
+
+script:
+- flake8 events
+- py.test --cov . events
+
+before_cache:
+- rm -f $HOME/.cache/pip/log/debug.log
+
+notifications:
+  slack:
+    secure: Hxh7X9ckorBlD2MRiSh/TE6nC0kyEZrEmegx3FHQgwOm5tNCZcJUoJprmEXA82SMxlbl12XcNLhFZaeQd6Gt2AF5AvTjbJLsLZBRebbKA6We1dCSpyHSGXy+GGWRD0J1OYstk2jg5fWmsscusLZ0MFbybg8qwmsv7/LOG+QoX6M=
+
+after_success: codecov

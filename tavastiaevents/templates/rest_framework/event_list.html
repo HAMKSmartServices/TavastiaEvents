@@ -1,0 +1,149 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+
+<h2 id="filtering-retrieved-events">Filtering retrieved events</h2>
+<p>Query parameters can be used to filter the retrieved events by
+the following criteria.</p>
+<h3 id="event-time">Event time</h3>
+<p>Use <code>start</code> and <code>end</code> to restrict the date range of returned events.
+Any events that intersect with the given date range will be returned.</p>
+<p>The parameters <code>start</code> and <code>end</code> can be given in the following formats:</p>
+<ul>
+<li>ISO 8601 (including the time of day)</li>
+<li>yyyy-mm-dd</li>
+</ul>
+<p>In addition, <code>today</code> can be used as the value.</p>
+<p>Example:</p>
+<pre><code>event/?start=2014-01-15&amp;end=2014-01-20
+</code></pre>
+<p><a href="?start=2014-01-15&amp;end=2014-01-20" title="json">See the result</a></p>
+<h3 id="event-location">Event location</h3>
+<h4 id="bounding-box">Bounding box</h4>
+<p>To restrict the retrieved events to a geographical region, use
+the query parameter <code>bbox</code> in the format</p>
+<pre><code>bbox=west,south,east,north
+</code></pre>
+<p>Where <code>west</code> is the longitude of the rectangle's western boundary,
+<code>south</code> is the latitude of the rectangle's southern boundary,
+and so on.</p>
+<p>Example:</p>
+<pre><code>event/?bbox=24.9348,60.1762,24.9681,60.1889
+</code></pre>
+<p><a href="?bbox=24.9348,60.1762,24.9681,60.1889" title="json">See the result</a></p>
+<h4 id="specific-location">Specific location</h4>
+<p>To restrict the retrieved events to a known location(s), use
+the query parameter <code>location</code>, separating values by commas
+if you wish to query for several locations.</p>
+<p>Location ids are found at the <code>place</code> endpoint, which lists the
+locations in decreasing number of events found. Locations come from Google Maps.</p>
+<p>Example:</p>
+<pre><code>event/?location=tprek:28473
+</code></pre>
+<p><a href="?location=tprek:28473" title="json">See the result</a></p>
+<h3 id="event-category">Event category</h3>
+<p>To restrict the retrieved events by category, use the query
+parameter <code>keyword</code>, separating values by commas if you wish to
+query for several locations.</p>
+<p>Keyword ids are found at the <code>keyword</code> endpoint, which lists the
+keywords in decreasing number of events found. The common keywords
+used in all events originate from the general Finnish ontology (yso),
+hence the format <code>yso:p4354</code>.</p>
+<p>Example:</p>
+<pre><code>event/?keyword=yso:p4354
+</code></pre>
+<p><a href="?keyword=yso:p4354" title="json">See the result</a></p>
+<h3 id="event-text">Event text</h3>
+<p>To find out events that contain a specific string in any of the text
+fields, use the query parameter <code>text</code>.</p>
+<p>Example:</p>
+<pre><code>event/?text=shostakovich
+</code></pre>
+<p><a href="?text=shostakovich" title="json">See the result</a></p>
+<h3 id="event-text">Event language</h3>
+<p>To find events that have a set language or event data translated into
+that language, use the query parameter <code>language</code>. If you only wish to see
+events that have a set language, use the <code>in_language</code> parameter, and if
+you only want event data translated to a set language, use the <code>translation</code> parameter.</p>
+<p>Supported languages are found at the <code>language</code> endpoint, which also lists
+which languages have translations available. Currently, translations are supported
+in <code>fi</code>, <code>sv</code>, <code>en</code><!-- <code>ru</code>,
+<code>zh_hans</code>, and <code>ar</code>-->.</p>
+<p>Example:</p>
+<pre><code>event/?language=fi
+</code></pre>
+<p><a href="?language=ru" title="json">See the result</a></p>
+<h3 id="event-text">Event publisher</h3>
+<p>To find out events that are published by a specific organization, use the query
+parameter <code>publisher</code>.</p>
+<p>Existing organizations are found at the <code>organization</code> endpoint.</p>
+<p>Example:</p>
+<pre><code>event/?publisher=ytj:0586977-6
+</code></pre>
+<p><a href="?publisher=ytj:0586977-6" title="json">See the result</a></p>
+<h2 id="getting-detailed-data">Getting detailed data</h2>
+<p>In the default case, keywords, locations, and other fields that
+refer to separate resources are only displayed as simple references.</p>
+<p>If you want to include the complete data from related resources in
+the current response, use the keyword <code>include</code>. For example:</p>
+<pre><code>event/?include=location,keywords
+</code></pre>
+<p><a href="?include=location,keywords" title="json">See the result</a></p>
+<h3 id="event-text">Ordering</h2>
+        <p>Default ordering is decreasing order by <code>last_modified_time</code>.
+    You may also order results by <code>start_time</code>, <code>end_time</code>,
+            <code>name</code> and <code>duration</code>.
+    For example:</p>
+<pre><code>event/?sort=end_time
+</code></pre>
+<p><a href="?sort=name" title="json">See the result</a></p>
+
+
+<h3 id="event-text">Search by address locality</h2>
+        <p>Filtering can be done with city level filter with different languages. Filtering can be done with the following, <code>address_locality_fi</code>.
+    <code>address_locality_sv</code>, <code>address_locality_en</code>. City name must be written correctly e.g. start with a capital letter.
+    For example:</p>
+<pre><code>event/?address_locality_fi=Hämeenlinna
+</code></pre>
+<p><a href="?address_locality_fi=Hämeenlinna" title="json">See the result</a></p>
+
+<h3 id="event-text">Only keywords</h2>
+<p>To restrict the retrieved events by category, use the query
+    parameter <code>keywords</code>, separating values by commas if you wish to
+    query for several keywords.</p>
+    <p>Keyword ids are found at the <code>keyword</code> endpoint, which lists the
+    keywords in decreasing number of events found. The common keywords
+    used in all events originate from the general Finnish ontology (yso),
+    hence the format <code>yso:p4354</code>.</p>
+    <p>Example:</p>
+    <pre><code>event/?keywords=yso:p4354
+    </code></pre>
+    <p><a href="?keywords=yso:p4354" title="json">See the result</a></p>
+
+<h3 id="event-text">Only audience</h2>
+<p>To restrict the retrieved events by audience, use the query
+    parameter <code>audience</code>, separating values by commas if you wish to
+    query for several audiences.</p>
+    <p>Keyword ids are found at the <code>keyword</code> endpoint, which lists the
+    keywords in decreasing number of events found. The common keywords
+    used in all events originate from the general Finnish ontology (yso),
+    hence the format <code>yso:p4354</code>.</p>
+    <p>Example:</p>
+    <pre><code>event/?audience=yso:p4354
+    </code></pre>
+    <p><a href="?audience=yso:p4354" title="json">See the result</a></p>
+
+    <h3 id="event-text">Event provider</h3>
+    <p>To find events that are provided by a specific provider, use the query
+    parameter <code>provider</code>. The search is case insensitive and searches from the fi, sv and en fields.</p>
+    <p>Example:</p>
+    <pre><code>event/?provider=hamk
+    </code></pre>
+
+    <h3 id="event-text">Postal code</h3>
+    <p>Filtering can be done with postal code filter. Filtering can be done with the following, <code>postal_code</code>. Separate multiple postal codes with comma.
+    <p>Example:</p>
+    <pre><code>event/?postal_code=13100
+    </code></pre>
+
+    </div>
+</div>

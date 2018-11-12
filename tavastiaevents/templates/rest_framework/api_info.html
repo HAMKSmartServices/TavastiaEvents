@@ -1,0 +1,1054 @@
+{% load static %}
+<!doctype html>
+<html lang="fi">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'rest_framework/css/documentation.css' %}">
+    <title>TavastiaEvents API documentation</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-custom">
+        <a class="navbar-brand" href="#">
+            <img src="{% static "rest_framework/images/tavastia_events.svg" %}" height="40px" vertical-align="top" margin-top="-8px"
+                margin-right="10px" display="inline-block">TavastiaEvents API v1</a>
+    </nav>
+
+    <div class="col-md-8 offset-md-2">
+            <h2>Tavastia Events-palvelun kohderyhmä- ja kategoria-valinnat</h2>
+            <p>
+                Tavastia Events-palvelussa käytettävät kohderyhmät. Voit käyttää omissa lomakkeissasi/syötöissä myös muita kuin alla listattuja
+                vaihtoehtoja.
+<pre>
+Aikuiset                    (yso:p5590)
+Ikäihmiset                  (yso:p2434)
+Lapset ja lapsiperheet      (yso:p4354 & yso:p13050 & yso:p4363)
+Nuoret                      (yso:p11617)
+Yrittäjät                   (yso:p1178)
+Yritykset ja yhdistykset    (yso:p3128 & yso:p1393)
+Opiskelijat                 (yso:p16486)
+Harrastajat                 (yso:p10699)
+</pre>
+            </p>
+            <p>
+                Tavastia Events-palvelussa käytettävät kategoriat. Voit käyttää omissa lomakkeissasi/syötöissä myös muita kuin alla listattuja
+                vaihtoehtoja.
+<pre>
+Elokuva                     (yso:p16327)
+Kuvataide                   (yso:p2739)
+Näyttely                    (yso:p5121)
+Museot                      (yso:p4934)
+Teatteri                    (yso:p2625)                     
+Musiikki                    (yso:p1808)
+Leikit ja pelit             (yso:p 318 & yso:p6062)
+Liikunta ja urheilu         (yso:p916 & yso:p965)
+Tanssi                      (yso:p1278 & yso:p3046)
+Ruoat ja juomat             (yso:p368 & yso:p5127)
+Koulutukset ja seminaarit   (yso:p84 & yso:p7765)
+Tekniikka & Teknologia      (yso:p1586 & yso:p3456 & yso:p2339)
+Harrastukset                (yso:p2901)
+Hyvinvointi & Terveys       (yso:p22036 & yso:p2762)
+Hengelliset                 (yso:p17710)
+Messut ja markkinat         (yso:p4892 & yso:p24062)
+</pre>
+            </p>
+    
+        <div class="accordion" id="accordionJSON">
+            <div class="card">
+                <div class="card-header" id="eventPOST">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                            aria-controls="collapseOne">
+                            Tapahtuman syöttäminen POST RAJAPINNAN_OSOITE/v1/event/
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionJSON">
+                    <div class="card-body">
+                        <p>Tapahtuma lisätään /event endpointtiin.</p>
+                        <p>
+                            Tapahtumaa lisätessä on mahdollista syöttää tiedot kolmella kielellä, Suomi, Ruotsi ja Englanti. Tiedot on syötettävä vähintään yhdellä kielellä,<br> mutta halutessasi tiedot voidaan syöttää kaikilla kolmella kielellä.
+
+                        </p>
+                        <p>
+                            <b>Käytettävä content-type:</b><br>
+                                application/json
+                            </p>
+                        <p>
+                            <table>
+                                <tr>
+                                    <th>Kaikki kentät</th>
+                                    <th>Kieliversio saatavilla</th>
+                                    <th>Pakollinen?</th>
+                                    <th>Max merkkimäärä</th>
+                                    <th>Tietotyyppi</th>
+                                    <th>Muoto</th>
+                                </tr>
+                                <tr>
+                                    <td>keywords</td>
+                                    <td></td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>string/link</td>
+                                    <td>RAJAPINTA/v1/keyword/{id}/</td>
+                                </tr>
+                                <tr>
+                                    <td>location</td>
+                                    <td></td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>string/link</td>
+                                    <td>RAJAPINTA/v1/place/{id}/</td>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>Kyllä</td>
+                                    <td>Kyllä</td>
+                                    <td>255</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>short_description</td>
+                                    <td></td>
+                                    <td>Kyllä</td>
+                                    <td>140</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>start_time</td>
+                                    <td></td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>datetime</td>
+                                    <td>YYYY-MM-DDThh:mm[:ss[.uuuuuu]][+HH:MM|-HH:MM|Z]</td>
+                                </tr>
+                                <tr>
+                                    <td>accessible</td>
+                                    <td></td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>boolean</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>pin</td>
+                                    <td></td>
+                                    <td>Kyllä</td>
+                                    <td>64</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>offers:is_free</td>
+                                    <td></td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>boolean</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>offers:description</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>offers:price</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>1000</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>offers:info_url</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>1000</td>
+                                    <td>string/link</td>
+                                    <td>HTTP:// tai HTTPS://</td>
+                                </tr>
+
+                                <tr>
+                                    <td>in_language</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string/link</td>
+                                    <td>RAJAPINTA/v1/language/{id}/</td>
+                                </tr>
+                                <tr>
+                                    <td>external_links:name</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>100</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>external_links:link</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>200</td>
+                                    <td>string/link</td>
+                                    <td>HTTP:// tai HTTPS://</td>
+                                </tr>
+                                <tr>
+                                    <td>external_links:language</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string/id</td>
+                                    <td>{language id}</td>
+                                </tr>
+                                <tr>
+                                    <td>custom_data</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>info_url</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>1000</td>
+                                    <td>string/link</td>
+                                    <td>HTTP:// tai HTTPS://</td>
+                                </tr>
+                                <tr>
+                                    <td>description</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>provider</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>512</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>provider_email</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>254</td>
+                                    <td>email</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>location_extra_info</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>400</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>end_time</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>datetime</td>
+                                    <td>YYYY-MM-DDThh:mm[:ss[.uuuuuu]][+HH:MM|-HH:MM|Z]</td>
+                                </tr>
+                                <tr>
+                                    <td>images</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string/link</td>
+                                    <td>RAJAPINTA/v1/image/{id}/</td>
+                                </tr>
+                                <tr>
+                                    <td>super_event</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string/link</td>
+                                    <td>RAJAPINTA/v1/event/{id}/</td>
+                                </tr>
+                                <tr>
+                                    <td>super_event_type</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>VAIN 'recurring'</td>
+                                    <td>RAJAPINTA/v1/event/{id}/</td>
+                                </tr>
+                                <tr>
+                                    <td>audience</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string/link</td>
+                                    <td>RAJAPINTA/v1/keyword/{id}/</td>
+                                </tr>
+                            </table>
+                        </p>
+                        <h3>
+                            Toistuvien tapahtumien syöttäminen
+                        </h3>
+                        <p>
+                            Toistuvia tapahtumia voidaan merkitä eri tavoin. Tässä mainitut kohdat ovat suositeltavia, koska sen avulla on mahdollista esittää tapahtumien liittyminen toisiinsa, ja esimerkiksi niiden ryhmittelyn. 
+                            <br>
+                            <br>
+                            Mikäli tapahtuma kestää tietyn ajan säännöllisillä ajoilla, kuten koko viikon joka päivä 8.00 - 16.00, tapahtuma voidaan merkitä yhtenä tapahtumana kirjaten aukioloajat kuvaukseen. 
+                            <br>
+                            <br>
+                            Mikäli tapahtuma kestää esimerkiksi kuukauden ajan, mutta vain arkipäivinä, tapahtuma voidaan merkitä viikoittain(ma-pe) kirjaten kuvaukseen aukioloajat. Tällöin tapahtuma ei näy la-su. Tällöin voidaan hyödyntää alla olevaa tapaa hyödyntää super ja sub event tietoa, jotta viikoittaiset tapahtumat saadaan liitettyä toisiinsa.
+                            <br>
+                            <br>
+                            Mikäli tapahtuman ajat ja/tai päivät ovat vaihtuvia, voidaan jokainen tapahtuma syöttää omanaan. Tällöin syötä tapahtumasarjan ensimmäiseen tapahtumaan <code>super_event_type</code> arvoksi <code>recurring</code>.
+                            <br>
+                            Tämän jälkeen alitapahtumiin syötä <code>super_event</code> arvoksi päätapahtuman <code>@id</code> arvo. Päätapahtumaan päivittyy <code>sub_events</code> kohtaan automaattisesti kaikkien tapahtumaan liittyvien alitapahtumien linkit.
+
+                            <br>
+                            <b>Alla esimerkki</b>
+                        </p>
+                        <h4>
+                            Päätapahtuma
+                        </h4>
+<pre>
+    <code>
+{
+    {
+        # Tapahtuman muita tietoja
+    },
+    "super_event_type": "recurring"       <b># Super event type. Only "recurring"</b>
+}
+    </code>
+</pre>
+
+<h4>
+    Alitapahtuma
+</h4>
+<pre>
+<code>
+{
+    {
+        # Tapahtuman muita tietoja
+    },
+    "super_event": {
+        "@id": "RAJAPINNAN_OSOITE/v1/event/{id}/"      <b># @ID of the main event.</b>
+    }       
+}
+</code>
+</pre>
+
+                        <div id="accordionEPOST">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseEPOST" aria-expanded="true" aria-controls="collapseEPOST">
+                                            POST rakenne kokonaisuudessaan
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseEPOST" class="collapse" aria-labelledby="headingOne" data-parent="#accordionEPOST">
+                                    <div class="card-body">
+                                        <pre>
+<code>
+{
+    "location": {
+        "@id": "RAJAPINNAN_OSOITE/v1/place/{id}/"       <b># Id for the location, must be found in the API database. Mandatory</b>
+    },
+
+    "keywords": [
+    {
+        "@id": "RAJAPINNAN_OSOITE/v1/keyword/{id}/"     <b># Id for the keyword, must be found in the API database. Multiple keywords can be added. One keyword is mandatory</b>
+    },
+    {
+        "@id": "RAJAPINNAN_OSOITE/v1/keyword/{id}/"     <b># Id for the keyword, must be found in the API database. Multiple keywords can be added. One keyword is mandatory</b>
+    }
+    ],
+
+    "audience": [
+    {
+        "@id": "RAJAPINNAN_OSOITE/v1/keyword/{id}/"     <b># Id for the keyword, must be found in the API database. Multiple keywords can be added. One keyword is mandatory</b>
+    },
+    {
+        "@id": "RAJAPINNAN_OSOITE/v1/keyword/{id}/"     <b># Id for the keyword, must be found in the API database. Multiple keywords can be added. One keyword is mandatory</b>
+    }
+    ],
+
+    "name": {
+        "fi": "Tapahtumalle nimi",      <b># Tapahtumalle nimi. Enintään 255 merkkiä. Pakollinen yhdellä kielellä</b>
+        "sv": "Namn på händelsen",      <b># Högst 255 tecken, formatering inte tillåtet. Obligatorisk på ett språk</b>
+        "en": "Name for the event"      <b># Max 255 characters, formatting not allowed. Mandatory for atleast one language</b>
+    },
+
+    "short_description": {
+        "fi": "Lyhyt kuvaus tapahtumalle, max 140 merkkiä",             <b># Pakollinen yhdellä kielellä. Enintään 140 merkkiä, muotoilu ei sallittu</b>
+        "sv": "En kort beskrivning av händelsen, max 140 tecken",       <b># Obligatorisk på ett språk. Högst 140 tecken, formatering inte tillåtet</b>
+        "en": "Short description for the event, max 140 characters"     <b># Mandatory for atleast one language. Max 140 characters, formatting not allowed</b>
+    },
+
+    "description": {
+        "fi": "Pitkä kuvaus tapahtumalle",              <b># Sallittu muotoilu p, div, table, td, th ja tr</b>
+        "sv": "En lång beskrivning av händelsen",       <b># Tillåtet formatering p, div, table, td, th och tr</b>
+        "en": "Long description for the event"          <b># Allowed formatting p, div, table, td, th and tr</b>
+    },
+
+    "start_time": "2018-06-21T18:46:12.000Z",       <b># Event start time, mandatory, UTC +0 </b>
+    "end_time": "2018-06-21T19:46:12.000Z",         <b># Event end time, not mandatory, UTC +0</b>
+
+    "pin": "pin1234"        <b># Max 64 characters, mandatory</b>
+
+    "accessible": false,    <b># Boolean. Accessibility information, mandatory</b>
+
+    "in_language": [
+    {
+    "@id": "RAJAPINNAN_OSOITE/v1/language/{id}/"        <b># Id for the language, must be found in the API database. Multiple languages can be added. For example the main language of the event</b>
+    },
+    {
+    "@id": "RAJAPINNAN_OSOITE/v1/language/{id}/"        <b># Id for the language, must be found in the API database. Multiple languages can be added. For example the main language of the event</b>
+    }
+    ],
+
+    "external_links": [                     <b># External links related to the event. For example social media links</b>
+    {
+        "name": "valinnainen nimi",         <b># Optional, can be left empty. For example name can be the name of the site, such as "google"</b>
+        "link": "http://www.google.fi",     <b># Mandatory, when adding a link. Same link can only added once on the same event</b>
+        "language": "{id}"                  <b># Mandatory, when adding a link. Two letter {id} must be found on the API database, such as "fi"</b>
+    },
+    {
+        "name": "valinnainen nimi",         <b># Optional, can be left empty. For example name can be the name of the site, such as "google"</b>
+        "link": "http://www.google.sv",     <b># Mandatory, when adding a link. Same link can only added once on the same event</b>
+        "language": "{id}"                  <b># Mandatory, when adding a link. Two letter {id} must be found on the API database, such as "fi"</b>
+    }
+    ],
+
+    "offers": [             <b># Price information. Free/paid information at minimum is mandatory</b>
+    {
+        "price": {
+            "fi": "10€ peruslippu, 8€ opiskelijoille",          <b># Perus hintatiedot, esimerkiksi normaalilipun hinta</b>
+            "sv": "10€ för grundbiljett, 8€ för studenter",     <b># Grundprisinformation, till exempel ett standardbiljettpris</b>
+            "en": "10€ for basic ticket, 8€ for students"       <b># Basic price information, e.g. price for a normal ticket</b>
+        },
+        "info_url": {
+            "fi": "http://osoite.fi/hinnasto",          <b># Linkki hinnastoon</b>
+            "sv": "http://address.sv/prislista",        <b># Webbadress till prislista</b>
+            "en": "http://address.com/pricepage"        <b># Link to the price list</b>
+        },
+        "description": {
+            "fi": "string",     <b># Kuvaus hinnastolle, esimerkiksi jos ei ole erillistä verkkosivua hinnastolle</b>
+            "sv": "string",     <b># Beskrivning av prislistan, till exempel om det inte finns någon separat webbsida för prislistan</b>
+            "en": "string"      <b># Description for the pricing, e.g. if there is no separate webpage for the price list</b>
+        },
+        "is_free": true     <b># Boolean. If the event is free or paid. Mandatory</b>
+    }
+    ],
+
+    "custom_data": 
+    {
+        "key": "value",     <b># Tapahtumaan liittyvää lisätietoa, esimerkiksi voidaan käyttää identifiointiin omassa järjestelmässä</b>
+        "key2": "value2",   <b># Mer information om evenemanget, t.ex. det kan användas för identifiering i ditt system"</b>
+        "key3": "value3"    <b># Extra information related to the event, e.g. can be used to identify the event in your own system</b>
+    },
+    
+    "info_url": {
+        "fi": "http://www.google.fi/",      <b># Tapahtuman kotisivun www-osoite täydellisenä. Pitää sisältää http:// tai https://</b>
+        "sv": "http://www.google.sv/",      <b># Händelse hemsida fullständig. Måste innehålla http:// eller https://</b>
+        "en": "http://www.google.com/"      <b># Events homepage fully qualified www-address. Must include http:// or https://</b>
+    },
+    
+    "provider": {
+        "fi": "Tapahtuman järjestäjä",      <b># Enintään 512 merkkiä</b>
+        "sv": "Event arrangör",             <b># Högst 512 tecken</b>
+        "en": "Event organizer"             <b># Max 512 characters</b>
+    },
+    "provider_email": "example@example.com", <b># Qualified Email</b>
+
+    "location_extra_info": {
+        "fi": "Lisätietoa paikalle, kuten käytettävä ovi",                              <b># Enintään 400 merkkiä</b>
+        "sv": "Ytterligare information på platsen, t.ex. dörren som ska användas",      <b># Högst 400 tecken</b>
+        "en": "Extra information for the place, e.g. door to use"                       <b># Max 400 characters</b>
+    },
+    
+    "images": [
+    {
+        "@id": "RAJAPINNAN_OSOITE/v1/image/{id}/"   <b># {id} is a picture id from the API database</b>
+    }
+    ]
+    
+}
+</code>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="card">
+                <div class="card-header" id="eventPUT">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                            aria-controls="collapseTwo">
+                            Tapahtuman muokkaaminen PUT RAJAPINNAN_OSOITE/v1/event/{id}/
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="eventPUT" data-parent="#accordionJSON">
+                    <div class="card-body">
+                        <p>
+                            Tapahtumaa päivitettäessä on suositeltavaa käyttää metodia PUT
+                        </p>
+                        <p>
+                            <b>Käytettävä content-type:</b><br>
+                                application/json
+                        </p>
+                        <p>
+                            Tapahtuman päivittäminen vaatii oikean PIN-koodin syöttämisen päivitystä tehtäessä, eikä PIN-koodia voida jälkikäteen vaihtaa itse.<br>
+                        </p>
+
+
+
+                        <div id="accordionEPUT">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseEPUT" aria-expanded="true" aria-controls="collapseEPUT">
+                                            PUT rakenne kokonaisuudessaan
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseEPUT" class="collapse" aria-labelledby="headingOne" data-parent="#accordionEPUT">
+                                    <div class="card-body">
+                                        <pre>
+<code>
+{
+    "location": {
+        "@id": "RAJAPINNAN_OSOITE/v1/place/{id}/"       <b># Id for the location, must be found in the API database. Mandatory</b>
+    },
+
+    "keywords": [
+    {
+        "@id": "RAJAPINNAN_OSOITE/v1/keyword/{id}/"     <b># Id for the keyword, must be found in the API database. Multiple keywords can be added. One keyword is mandatory</b>
+    },
+    {
+        "@id": "RAJAPINNAN_OSOITE/v1/keyword/{id}/"     <b># Id for the keyword, must be found in the API database. Multiple keywords can be added. One keyword is mandatory</b>
+    }
+    ],
+
+    "name": {
+        "fi": "Tapahtumalle nimi",      <b># Tapahtumalle nimi. Enintään 255 merkkiä. Pakollinen yhdellä kielellä</b>
+        "sv": "Namn på händelsen",      <b># Högst 255 tecken, formatering inte tillåtet. Obligatorisk på ett språk</b>
+        "en": "Name for the event"      <b># Max 255 characters, formatting not allowed. Mandatory for atleast one language</b>
+    },
+
+    "short_description": {
+        "fi": "Lyhyt kuvaus tapahtumalle, max 140 merkkiä",             <b># Pakollinen yhdellä kielellä. Enintään 140 merkkiä, muotoilu ei sallittu</b>
+        "sv": "En kort beskrivning av händelsen, max 140 tecken",       <b># Obligatorisk på ett språk. Högst 140 tecken, formatering inte tillåtet</b>
+        "en": "Short description for the event, max 140 characters"     <b># Mandatory for atleast one language. Max 140 characters, formatting not allowed</b>
+    },
+
+    "description": {
+        "fi": "Pitkä kuvaus tapahtumalle",              <b># Sallittu muotoilu p, div, table, td, th ja tr</b>
+        "sv": "En lång beskrivning av händelsen",       <b># Tillåtet formatering p, div, table, td, th och tr</b>
+        "en": "Long description for the event"          <b># Allowed formatting p, div, table, td, th and tr</b>
+    },
+
+    "start_time": "2018-06-21T18:46:12.000Z",       <b># Event start time, mandatory, UTC +0 </b>
+    "end_time": "2018-06-21T19:46:12.000Z",         <b># Event end time, not mandatory, UTC +0</b>
+
+    "pin": "pin1234"        <b># Max 64 characters, mandatory</b>
+
+    "accessible": false,    <b># Boolean. Accessibility information, mandatory</b>
+
+    "in_language": [
+    {
+    "@id": "RAJAPINNAN_OSOITE/v1/language/{id}/"        <b># Id for the language, must be found in the API database. Multiple languages can be added. For example the main language of the event</b>
+    },
+    {
+    "@id": "RAJAPINNAN_OSOITE/v1/language/{id}/"        <b># Id for the language, must be found in the API database. Multiple languages can be added. For example the main language of the event</b>
+    }
+    ],
+
+    "external_links": [                     <b># External links related to the event. For example social media links</b>
+    {
+        "name": "valinnainen nimi",         <b># Optional, can be left empty. For example name can be the name of the site, such as "google"</b>
+        "link": "http://www.google.fi",     <b># Mandatory, when adding a link. Same link can only added once on the same event</b>
+        "language": "{id}"                  <b># Mandatory, when adding a link. Two letter {id} must be found on the API database, such as "fi"</b>
+    },
+    {
+        "name": "valinnainen nimi",         <b># Optional, can be left empty. For example name can be the name of the site, such as "google"</b>
+        "link": "http://www.google.sv",     <b># Mandatory, when adding a link. Same link can only added once on the same event</b>
+        "language": "{id}"                  <b># Mandatory, when adding a link. Two letter {id} must be found on the API database, such as "fi"</b>
+    }
+    ],
+
+    "offers": [             <b># Price information. Free/paid information at minimum is mandatory</b>
+    {
+        "price": {
+            "fi": "10€ peruslippu, 8€ opiskelijoille",          <b># Perus hintatiedot, esimerkiksi normaalilipun hinta</b>
+            "sv": "10€ för grundbiljett, 8€ för studenter",     <b># Grundprisinformation, till exempel ett standardbiljettpris</b>
+            "en": "10€ for basic ticket, 8€ for students"       <b># Basic price information, e.g. price for a normal ticket</b>
+        },
+        "info_url": {
+            "fi": "http://osoite.fi/hinnasto",          <b># Linkki hinnastoon</b>
+            "sv": "http://address.sv/prislista",        <b># Webbadress till prislista</b>
+            "en": "http://address.com/pricepage"        <b># Link to the price list</b>
+        },
+        "description": {
+            "fi": "string",     <b># Kuvaus hinnastolle, esimerkiksi jos ei ole erillistä verkkosivua hinnastolle</b>
+            "sv": "string",     <b># Beskrivning av prislistan, till exempel om det inte finns någon separat webbsida för prislistan</b>
+            "en": "string"      <b># Description for the pricing, e.g. if there is no separate webpage for the price list</b>
+        },
+        "is_free": true     <b># Boolean. If the event is free or paid. Mandatory</b>
+    }
+    ],
+
+    "custom_data": 
+    {
+        "key": "value",     <b># Tapahtumaan liittyvää lisätietoa, esimerkiksi voidaan käyttää identifiointiin omassa järjestelmässä</b>
+        "key2": "value2",   <b># Mer information om evenemanget, t.ex. det kan användas för identifiering i ditt system"</b>
+        "key3": "value3"    <b># Extra information related to the event, e.g. can be used to identify the event in your own system</b>
+    },
+    
+    "info_url": {
+        "fi": "http://www.google.fi/",      <b># Tapahtuman kotisivun www-osoite täydellisenä. Pitää sisältää http:// tai https://</b>
+        "sv": "http://www.google.sv/",      <b># Händelse hemsida fullständig. Måste innehålla http:// eller https://</b>
+        "en": "http://www.google.com/"      <b># Events homepage fully qualified www-address. Must include http:// or https://</b>
+    },
+    
+    "provider": {
+        "fi": "Tapahtuman järjestäjä",      <b># Enintään 512 merkkiä</b>
+        "sv": "Event arrangör",             <b># Högst 512 tecken</b>
+        "en": "Event organizer"             <b># Max 512 characters</b>
+    },
+
+    "location_extra_info": {
+        "fi": "Lisätietoa paikalle, kuten käytettävä ovi",                              <b># Enintään 400 merkkiä</b>
+        "sv": "Ytterligare information på platsen, t.ex. dörren som ska användas",      <b># Högst 400 tecken</b>
+        "en": "Extra information for the place, e.g. door to use"                       <b># Max 400 characters</b>
+    },
+    
+    "images": [
+    {
+        "@id": "RAJAPINNAN_OSOITE/v1/image/{id}/"   <b># {id} is a picture id from the API database</b>
+    }
+    ]
+    
+}
+</code>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="eventDELETE">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                            aria-controls="collapseThree">
+                            Tapahtuman poistaminen DELETE RAJAPINNAN_OSOITE/v1/event/{id}
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="eventDELETE" data-parent="#accordionJSON">
+                    <div class="card-body">
+                        <p>
+                            <b>Käytettävä content-type:</b><br>
+                                application/x-www-form-urlencoded<br>
+                                multipart/form-data
+                        </p>
+                        <p>
+                            Tapahtuma poistetaan käyttäen metodia DELETE. Pyynnön mukana on lähetettävä PIN-koodi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="imagePOST">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                            aria-controls="collapseFour">
+                            Kuvan lisääminen POST RAJAPINNAN_OSOITE/v1/image/
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="imagePOST" data-parent="#accordionJSON">
+                    <div class="card-body">
+                        <p>
+                            Rajapintaan voidaan lähettää kuvatiedosto, jolloin se tallennetaan Microsoft Azuren Blob Storageen. <br>
+                            Azuren tallennustilan fyysinen sijainti on Pohjois-Eurooppa/Irlanti.
+                            <br>
+                            TAI
+                            <br>
+                            Rajapintaan voidaan lähettää linkki kuvaan, jos se on jo ladattuna verkkoon.
+                        </p>
+                        <p>
+                            Kuvaa lähetettäessä on käytettävissä 5 kenttää,<br>
+                            <table>
+                                <tr>
+                                    <th>Kenttä</th><th>Tarkoitus</th><th>Pakollinen?</th>
+                                </tr>
+                                <tr>
+                                    <td>name</td><td>Nimi kuvalle</td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>photographer_name</td><td>Kuvaajan nimi</td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>license</td><td>Lisenssi</td><td></td>
+                                </tr>
+                            </table>
+                            <br>
+                            <p>
+                                Ja kuvatiedosto <b>TAI</b> linkki
+                            </p>
+                            <br>
+                            <table>
+                                <tr>
+                                    <th>Kenttä</th><th>Tarkoitus</th><th>Pakollinen?</th>
+                                </tr>
+                                <tr>
+                                    <td>url</td><td>Linkki kuvaan</td><td>Kyllä</td>
+                                </tr>
+                            </table>
+                            <br>
+                            <p>
+                                <b>TAI</b>
+                            </p>
+                            <br>
+                            <table>
+                                <tr>
+                                    <th>Kenttä</th><th>Tarkoitus</th><th>Pakollinen?</th>
+                                </tr>
+                                <tr>
+                                    <td>image</td><td>Kuvatiedosto</td><td>Kyllä</td>
+                                </tr>    
+                            </table>
+                        </p>
+                        <p>
+                            Käytössä oleva lisenssi-kenttä sallii ohjeiden kirjoitus hetkellä vain <code>event_only</code> arvon käyttämisen.<br>
+                            Rajapinnan kautta löytyvien kuvien käyttö on rajattu vain tapahtuman tietojen yhteydessä käytettäväksi.<br>
+                            Kuvan maksimikoko on 1mb.
+                        </p>
+                        <p>
+                            Kuvalle ei ole pakko antaa nimeä, tällöin syöttäessä kuvaa nimeksi asetetaan kuvan osoite.<br>
+                            Kuvaajan nimeä ei ole pakko syöttää.
+                        </p>
+                        <p>
+                            <b>Käytettävä content-type:</b><br>
+                                application/json<br>
+                                multipart/form-data
+                        </p>
+
+                        <div id="accordionIPOST">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseIPOST" aria-expanded="true" aria-controls="collapseIPOST">
+                                            POST rakenne kokonaisuudessaan
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseIPOST" class="collapse" aria-labelledby="headingOne" data-parent="#accordionIPOST">
+                                    <div class="card-body">
+                                        <p>
+                                            Lähettäessä linkkiä ulkopuoliseen kuvaan <b>content-type</b> voi olla sekä <b>multipart/form-data</b> että <b>application/json</b>.
+                                        </p>
+                                        <pre>
+<code>
+{
+    "name": "Juoksija, valinnainen",
+    "photographer_name": "Kuvaajan nimi, valinnainen",
+    "url": "https://images.pexels.com/photos/235922/pexels-photo-235922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "license": "event_only"
+}
+</code>
+</pre>
+                                        <p>
+                                            Lähetettäessä kuvatiedostoa rajapintaan, <b>content-type</b> on <b>multipart/form-data</b>.
+                                        </p>
+                                        <table>
+                                            <tr>
+                                                <td>name</td><td>kuvan_nimi</td>
+                                                <td>photographer_name</td><td>Kuvaajan nimi</td>
+                                                <td>image</td><td>kuvatiedosto.jpg</td>
+                                                <td>license</td><td>event_only</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="placePOST">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
+                            aria-controls="collapseFive">
+                            Paikan lisääminen POST RAJAPINNAN_OSOITE/v1/place/
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="placePOST" data-parent="#accordionJSON">
+                    <div class="card-body">
+                        <p>
+                            Paikkoja ei ole mahdollista poistaa tai muokata itse.
+                        </p>
+                        <p>
+                            <b>Käytettävä content-type:</b><br>
+                                application/json
+                        </p>
+                        <p>
+                            Kentät, joissa on kieliversio saatavilla, on tiedot syötettävä vähintään yhdellä kielellä.
+                        </p>
+
+                        <table>
+                                <tr>
+                                    <th>Kaikki kentät</th>
+                                    <th>Kieliversio saatavilla</th>
+                                    <th>Pakollinen?</th>
+                                    <th>Max merkkimäärä</th>
+                                    <th>Tietotyyppi</th>
+                                    <th>Muoto</th>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>255</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>position:latitude</td>
+                                    <td></td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>string</td>
+                                    <td>WGS 84/srid=4326</td>
+                                </tr>
+                                <tr>
+                                    <td>position:longitude</td>
+                                    <td></td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>string</td>
+                                    <td>WGS 84/srid=4326</td>
+                                </tr>
+                                <tr>
+                                    <td>street_address</td>
+                                    <td>Kyllä</td>
+                                    <td>Kyllä</td>
+                                    <td>255</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>address_locality</td>
+                                    <td>Kyllä</td>
+                                    <td>Kyllä</td>
+                                    <td>255</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>description</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>email</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>254</td>
+                                    <td>email</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>telephone</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>128</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>post_office_box_num</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>128</td>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>address_country</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>2</td>
+                                    <td>string</td>
+                                    <td>Kaksi kirjaiminen maakoodi</td>
+                                </tr>
+                                <tr>
+                                    <td>info_url</td>
+                                    <td>Kyllä</td>
+                                    <td></td>
+                                    <td>1000</td>
+                                    <td>url</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>custom_data</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string</td>
+                                    <td></td>
+                                    postal_code
+                                </tr>
+                                <tr>
+                                    <td>postal_code</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>string</td>
+                                    <td></td>
+                                    </tr>
+                        </table>
+
+
+                        <div id="accordionPPOST">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapsePPOST" aria-expanded="true" aria-controls="collapsePPOST">
+                                            POST rakenne kokonaisuudessaan
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapsePPOST" class="collapse" aria-labelledby="headingOne" data-parent="#accordionPPOST">
+                                    <div class="card-body">
+
+                                        <pre><code>
+{
+    "name": {
+        "fi": "Hämeenlinnan tori",          <b># Jos paikalla on tunnettu nimi, se voidaan antaa tässä. Rajapinnassa nimi kenttään lisätään osoite ja kaupunki</b>
+        "sv": "Tavastehus marknad",         <b># Om ett känt namn är närvarande kan det ges här. I gränssnittsnamnet anger du adressen och staden</b>
+        "en": "Hämeenlinnas market"         <b># If a place has a known-name, it can be added here. In the API, address and city is added to the name field</b>
+    },
+    "street_address": {
+        "fi": "Katuosoite 1",           <b># Pakollinen, katuosoite</b>
+        "sv": "Gatuadress 1",           <b># Obligatoriskt, gatuadress</b>
+        "en": "Street address 1"        <b># Mandatory, street address</b>
+    },
+    "address_locality": {
+        "fi": "Hämeenlinna",        <b># Pakollinen, kaupunki tai kunta</b>
+        "sv": "Tavastehus",         <b># Obligatoriskt, stad eller kommun</b>
+        "en": "Hämeenlinna"         <b># Mandatory, city or municipality</b>
+    },
+    "position": {
+        "latitude": 60.12345678912345,    <b># WGS 84</b>
+        "longitude": 20.12345678912345    <b># WGS 84</b>
+    },
+    "custom_data":
+    {
+        "key1": "string",       <b># Tapahtumaan liittyvää lisätietoa, esimerkiksi voidaan käyttää identifiointiin omassa järjestelmässä</b>
+        "key2": "string",       <b># Mer information om evenemanget, t.ex. det kan användas för identifiering i ditt system"</b>
+        "key3": "string"        <b># Extra information related to the event, e.g. can be used to identify the event in your own system</b>
+    },
+    "info_url": {
+        "fi": "http://www.google.fi",      <b># Jos paikalla on kotisivut ne voidaan lisätä tähän</b>
+        "sv": "http://www.google.sv",      <b># Om det finns en hemsida kan de läggas till här</b>
+        "en": "http://www.google.com"      <b># If the place has a website, it can be added here</b>
+    },
+    "description": {
+        "fi": "Kuvaus paikalle",            <b># Paikalle voidaan lisätä kuvaus</b>
+        "sv": "Beskrivning på platsen",     <b># En beskrivning kan läggas till platsen</b>
+        "en": "Description for the place"   <b># Description for the place can be added here</b>
+    },
+    "email": "omistaja@paikka.fi",      <b># If the place has an contact information, it can be added</b>
+    "telephone": {
+        "fi": "+1234567890",        <b># Puhelinnumero paikkaan</b>
+        "sv": "+1234567890",        <b># Telefonnummer till plats</b>
+        "en": "+1234567890"         <b># Phone number for the place</b>
+    },
+    "postal_code": "13100",                     <b># ZIP code</b>
+    "post_office_box_num": "Postilokero",       <b># PO box</b>
+    "address_country": "FI"                     <b># Two-letter country code</b>
+}
+</code></pre>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

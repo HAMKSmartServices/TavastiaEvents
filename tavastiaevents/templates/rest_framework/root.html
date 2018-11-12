@@ -1,0 +1,105 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+
+<p>
+    This API contains data from the TavastiaEvents form, and all other event organizers in Tavastia region.
+</p>
+<p>
+    The API is originally developed by the
+    <a href="http://dev.hel.fi">City of Helsinki Open Software Development team</a>
+    , who also provide the <a href="http://dev.hel.fi/apis/linked-events">complete API specifications</a>. 
+    This API instance is further developed and edited to suit the needs of the Tavastia region. This API is called TavastiaEvents.
+
+    Location information is fetched from Google Maps (at the time of writing) with extra information provided by user. 
+    In the API, you can search data by date or location as
+    well as bounding box.
+</p>
+
+<hr>
+
+<h2>1. Tapahtumatietojen käyttöoikeus</h2>
+
+<h3 style="margin-left:40px">1.1. Tapahtumatiedot on lisensoitu CC BY 4.0 lisenssillä:</h3>
+
+<p style="margin-left:80px"><a href="http://creativecommons.org/licenses/by/4.0/deed.fi">FI</a></p>
+
+<h3 style="margin-left:40px">1.2. Kuvat:</h3>
+
+<p style="margin-left:80px">Kuitenkin kuvia koskee seuraava lisensointi:</p>
+
+<p style="margin-left:80px">1.2.1 Kuvia saa käyttää ainoastaan kuvan tapahtumaa käsittelevään tiedotukseen ja viestintään. Kuvien käyttäminen tähän tarkoitukseen on käyttäjälle ilmaista. Kuvan käyttö tai siirto muihin tarkoituksiin on kielletty. Kuvien tekijänoikeudet pysyvät omistajalla.</p>
+
+<p style="margin-left:80px">1.2.2 Lataamalla kuvan rajapintaan hyväksyt yllämainitut kohdassa (1.2.1) olevat käyttöehdot sekä vakutaan, että kuvan tekijänoikeudet kuuluvat sinulle tai minulla on lupa käyttää kuvaa kohdan (1.2.1) mukaiseen käyttötarkoitukseen. Tavastia Eventsiä ylläpitävä taho ei vastaa käyttäjien tekemistä tekijänoikeusrikkomuksista.</p>
+
+<h2>2. Tapahtumien laillisuus ja asianmukaisuus</h2>
+
+<p style="margin-left:40px">Sisältö ei saa olla lakien vastaista tai altistavan muut käyttäjät haitalle (johon sisältyvät rajoituksetta petokset, liike- tai mainevahinko tai rikollinen toiminta).</p>
+
+<p style="margin-left:40px">Sinulla ei ole oikeutta lähettää palveluun sisältöä, joka on valheellista, harhaanjohtavaa, laitonta, siveetöntä, mautonta, pornografista, loukkaavaa, herjaavaa, uhkaavaa, häiritsevää, vihamielistä, halventavaa tai kiihottavaa, rohkaisee käytökseen, joka on rikollista tai johtaa siviilioikeudelliseen vastuuseen, rikkoo jonkin henkilön tai tahon oikeuksia tai velvollisuuksia, mukaan lukien julkisuutta ja yksityisyyttä, sisältää vioittuneita tietoja tai muulla tavoin vahingollisia tai häiriöitä tai tuhoa aiheuttavia tiedostoja</p>
+
+<h2>3. Henkilötiedot</h2>
+
+<p style="margin-left:40px">Rajapinnan käyttö ei vaadi henkilötietojen lisäämistä ja rajapinnan ylläpitäjä ei kerää tarkoituksen mukaisesti henkilötietoja käyttäjistä. Mikäli tapahtumatietojen yhteyteen lisätään henkilötietoja (esimerkiksi tapahtuman yhteyshenkilön nimi ja yhteystiedot), vakuutan, että minulla on oikeus ja asianomaisten henkilöiden suostumus lisätä tapahtumatietoihin tapahtumalle tarpeellisten henkilöiden tiedot. Henkilötietoja saa käyttää ainoastaan tapahtumaa käsittelevään tiedotukseen ja viestintään. Henkilötietojen käyttö tai siirto muihin tarkoituksiin on ehdottomasti kielletty. Rajapinnan ylläpitäjälle ei käytä, luovuta tai myy käyttäjien lisäämiä henkilötietoja muihin tarkoituksiin (pl. viranomaisten tiedonsaantioikeus).</p>
+
+<h2>4. Tavastia Events ylläpitäjän yhteystiedot:</h2>
+
+<p style="margin-left:40px">Hämeen Ammattikorkeakoulu Oy (2617489-3)</p>
+
+<p style="margin-left:40px">Visamäentie 35A, 13100 Hämeenlinna, Puh 03 6461</p>
+<p style="margin-left:40px">Älykkäät Palvelut-tutkimusyksikkö, AvoinHäme-hanke (www.avoinhäme.fi)</p>
+
+<br>
+
+<hr>
+
+<br>
+
+<h2>
+    Tapahtumaan liittyvät ilmoitukset
+</h2>
+<p>
+    Tapahtumasta lähetettävä ilmoitus tulee lähettää <code>api.tavastiaevents.fi/tavastiaevents/report/</code> osoitteeseen POST-pyynnöllä. 
+    Pyyntöön pitää liittää <code>message_code</code> ja <code>event_id</code> tiedot. Lisänä voidaan lähettää <code>message</code>, jossa voidaan lähettää lisätietoa liittyen pyyntöön, joka liitetään lähetettävään sähköpostiin.
+    <code>message</code> tiedon maksimipituus on 300 merkkiä. 
+</p>
+<h3>
+    Virhe tapahtuman tiedoissa
+</h3>
+<p>
+    <code>message_code</code>, jonka arvona <code>100</code><br>
+    <code>event_id</code>, jonka arvona ilmoitettavan tapahtuman id<br>
+    <code>message</code>Mahdollinen viesti lisätään lähetettävään sähköpostiin.<br>
+    Tästä lähtee sähköposti ylläpitäjälle ja tapahtuman luojan ilmoitettuun sähköpostiin.
+</p>
+<h3>
+    Asiaton tapahtuma
+</h3>
+<p>
+    <code>message_code</code>, jonka arvona <code>200</code><br>
+    <code>event_id</code>, jonka arvona ilmoitettavan tapahtuman id<br>
+    <code>message</code>Mahdollinen viesti lisätään lähetettävään sähköpostiin.<br>
+    Tästä lähtee sähköposti ylläpitäjälle.
+</p>
+<h3>
+    Unohtuneen PIN-koodin pyytäminen
+</h3>
+<p>
+    <code>message_code</code>, jonka arvona <code>300</code><br>
+    <code>event_id</code>, jonka arvona ilmoitettavan tapahtuman id<br>
+    Tästä lähtee sähköposti ylläpitäjälle ja tapahtuman luojan ilmoitettuun sähköpostiin.
+</p>
+
+    <h2>
+        Tavastia Events-rajapinnan dokumentaatio
+    </h2>
+    <p>
+        Alta löydät linkin dokumentaation, josta löydät tarkemmat ohjeet tietojen syöttämiseen, muokkaamiseen ja poistamiseen.
+    </p>
+    <p>
+        <a href="{% url 'tavastiaevents:documentation' %}"><h5>Linkki dokumentaatioon</h5></a>
+    </p>
+    <p>
+        Tällä hetkellä on suositeltavaa käyttää <code>/event</code> takaa löytyviä hakutoimintoja. 
+    </p>
+    </div>
+</div>
