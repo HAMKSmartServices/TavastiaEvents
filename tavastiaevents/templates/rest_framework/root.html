@@ -61,6 +61,19 @@
     Tapahtumasta lähetettävä ilmoitus tulee lähettää <code>api.tavastiaevents.fi/tavastiaevents/report/</code> osoitteeseen POST-pyynnöllä. 
     Pyyntöön pitää liittää <code>message_code</code> ja <code>event_id</code> tiedot. Lisänä voidaan lähettää <code>message</code>, jossa voidaan lähettää lisätietoa liittyen pyyntöön, joka liitetään lähetettävään sähköpostiin.
     <code>message</code> tiedon maksimipituus on 300 merkkiä. 
+    <br>
+    <br>
+    Tiedot lähetetään <b>form-datana</b>
+    <br>
+    <br>
+    Jos viestin pituus ylittää 300 merkkiä, rajapinta palauttaa <code>'message': "Message length can't exceed 300 characters"</code><br>
+    Jos viestistä puuttuu message_code tai event_id, rajapinta palauttaa <code>'required': 'event_id and message_code must be suplied with the report'</code><br>
+    Jos ilmoitettua tapahtumaa ei löydy, rajapinta palauttaa <code>'event_id': 'Event with that id was not found'</code><br>
+    Jos lähetettiin virheellinen <code>message_code</code>, rajapinta palauttaa<code>'message_code': 'Message code was not found on the server'</code><br>
+    Jos viesti lähetettiin onnistuneesti, rajapinta palauttaa <code>'message_sent': 'Successful'</code><br>
+    Jos lähetyksessä on tapahtunut virhe rajapinnan puolella, rajapinta palauttaa <code>'server_error': 'Error occurred on server. Please try again'</code>
+    <br>
+    <br>
 </p>
 <h3>
     Virhe tapahtuman tiedoissa

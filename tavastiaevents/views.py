@@ -25,11 +25,13 @@ def message_event(request):
         message_code = request.POST.get('message_code', None)
         message = request.POST.get('message', None)
 
-        if len(message) > 300:
-            responseData = {
-                'message': "Message length can't exceed 300 characters"
-            }
-            return JsonResponse(responseData, status=400)
+        if message is not None:
+            message = str(message)
+            if len(message) > 300:
+                responseData = {
+                    'message': "Message length can't exceed 300 characters"
+                }
+                return JsonResponse(responseData, status=400)
 
 
         if event_to_report == None or message_code == None:
