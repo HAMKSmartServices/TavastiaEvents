@@ -436,10 +436,12 @@ class Event(MPTTModel, BaseModel, SchemalessFieldMixin):
 
     class SuperEventType:
         RECURRING = 'recurring'
+        UMBRELLA = 'umbrella'
 
     SUPER_EVENT_TYPES = (
         (SuperEventType.RECURRING, _('Recurring')),
         # Other types include e.g. a festival
+        (SuperEventType.UMBRELLA, _('Umbrella event')),
     )
 
     # Properties from schema.org/Thing
@@ -486,7 +488,7 @@ class Event(MPTTModel, BaseModel, SchemalessFieldMixin):
     super_event = TreeForeignKey('self', null=True, blank=True,
                                  on_delete=models.SET_NULL, related_name='sub_events')
 
-    super_event_type = models.CharField(max_length=255, blank=True, null=True, default=None, choices=SUPER_EVENT_TYPES)
+    super_event_type = models.CharField(max_length=255, blank=True, null=True, default=None, choices=SUPER_EVENT_TYPES, db_index=True)
 
     in_language = models.ManyToManyField(Language, verbose_name=_('In language'), related_name='events', blank=True)
 
