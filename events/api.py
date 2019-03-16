@@ -1566,6 +1566,19 @@ class EventPostSerializer(LinkedEventsSerializer, GeoModelAPIView):
                         link[k] = bleach.clean(v, settings.BLEACH_CLEAN, strip=True)
                         link[k] = link[k].replace('&amp;', '&')
 
+        if 'end_time' in data:
+            end = data.get('end_time')
+            #end = datetime.strptime(end, "%Y-%m-%dT%H:%M:%SZ")
+
+            start = data.get('start_time')
+            #start = datetime.strptime(start, "%Y-%m-%dT%H:%M:%SZ")
+
+            if end is not None and start is not None:
+                if end.date() > start.date():
+                    data['multi_day'] = True
+                else:
+                    data['multi_day'] = False
+
         # If no end timestamp supplied, we treat the event as ending at midnight
         if not data.get('end_time'):
             # The start time may also be null if the event is postponed
@@ -1876,6 +1889,19 @@ class EventPutDeleteSerializer(LinkedEventsSerializer, GeoModelAPIView):
         if not offer_exists:
             errors['offers'] = _('Price info must be specified before an event is published.')
 
+        if 'end_time' in data:
+            end = data.get('end_time')
+            #end = datetime.strptime(end, "%Y-%m-%dT%H:%M:%SZ")
+
+            start = data.get('start_time')
+            #start = datetime.strptime(start, "%Y-%m-%dT%H:%M:%SZ")
+
+            if end is not None and start is not None:
+                if end.date() > start.date():
+                    data['multi_day'] = True
+                else:
+                    data['multi_day'] = False
+
         # If no end timestamp supplied, we treat the event as ending at midnight
         if not data.get('end_time'):
             # The start time may also be null if the event is postponed
@@ -2029,7 +2055,7 @@ class EventSerializer(LinkedEventsSerializer, GeoModelAPIView):
     publisher = serializers.CharField(required=False, allow_null=True)
     sub_events = JSONLDRelatedField(serializer='EventSerializer',
                                     required=False, view_name='event-detail',
-                                    many=True, queryset=Event.objects.filter(deleted=False))
+                                    many=True, queryset=Event.objects.filter(deleted=False), source='filter_deleted')
     image = JSONLDRelatedField(serializer=ImageSerializer, required=False, allow_null=True,
                                view_name='image-detail', queryset=Image.objects.all(), expanded=True)
     in_language = JSONLDRelatedField(serializer=LanguageSerializer, required=False,
@@ -2356,6 +2382,21 @@ def _filter_event_queryset(queryset, params, srs=None):
         val = val.split(',')
         queryset = queryset.filter(location__postal_code__in=val)
 
+    class InvalidMultiDayParametersException(APIException):
+        status_code = 400
+        default_detail = 'Correct choices are True or False'
+        default_code = 'choices'
+
+    # Tavastia Events
+    # Filter by multi_day
+    val = params.get('multi_day', None)
+    if val:
+        #val = val.split(',')
+        val = val.capitalize()
+        propers = ['False', 'True']
+        if val not in propers:
+            raise InvalidMultiDayParametersException()
+        queryset = queryset.filter(multi_day=val)
 
     # filter only super or non-super events. to be deprecated?
     val = params.get('recurring', None)

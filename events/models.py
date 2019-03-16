@@ -508,6 +508,8 @@ class Event(MPTTModel, BaseModel, SchemalessFieldMixin):
     accessible = models.BooleanField(default=False, null=False, blank=False)
     provider_email = models.EmailField(null=True, blank=True, default='admin@tavastiaevents.fi')
 
+    multi_day = models.BooleanField(default=False, null=False)
+
     class Meta:
         verbose_name = _('event')
         verbose_name_plural = _('events')
@@ -583,6 +585,9 @@ class Event(MPTTModel, BaseModel, SchemalessFieldMixin):
     def undelete(self, using=None):
         self.deleted = False
         self.save(update_fields=("deleted",), using=using, force_update=True)
+
+    def filter_deleted(self):
+        return self.sub_events.filter(deleted=False)
 
 
 reversion.register(Event)

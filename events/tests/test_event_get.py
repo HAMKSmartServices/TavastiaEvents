@@ -57,7 +57,8 @@ def assert_event_fields_exist(data, version='v1'):
         'sub_events',
         'super_event',
         'super_event_type',
-        'accessible'
+        'accessible',
+        'multi_day'
     )
     if version == 'v0.1':
         fields += (
