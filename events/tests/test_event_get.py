@@ -154,6 +154,7 @@ def test_get_event_list_verify_division_filter(api_client, event, event2, event3
     assert event.id in ids
     assert event2.id in ids
 
+
 @pytest.mark.django_db
 def test_get_event_list_super_event_filters(api_client, event, event2):
     event.super_event_type = Event.SuperEventType.RECURRING

@@ -30,6 +30,7 @@ from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError, PermissionDenied as DRFPermissionDenied, APIException
 from rest_framework.views import get_view_name as original_get_view_name
+from rest_framework.routers import APIRootView
 from rest_framework.fields import DateTimeField
 
 
@@ -74,17 +75,21 @@ from events.renderers import DOCXRenderer
 from django.utils.crypto import get_random_string
 from drf_extra_fields.geo_fields import PointField
 
-
+from datetime import datetime
 
 import time
 
 """
     Tavastia Events
 """
-def get_view_name(cls, suffix=None):
-    if cls.__name__ == 'APIRootView':
+# def get_view_name(cls, suffix=None):
+#     if cls.__name__ == 'APIRootView':
+#         return 'Tavastia Events'
+#     return original_get_view_name(cls, suffix)
+def get_view_name(view):
+    if type(view) is APIRootView:
         return 'Tavastia Events'
-    return original_get_view_name(cls, suffix)
+    return original_get_view_name(view)
 
 
 viewset_classes_by_model = {}
@@ -1476,7 +1481,11 @@ class EventPostSerializer(LinkedEventsSerializer, GeoModelAPIView):
             errors['provider'] = (_('Provider information is required'))
 
         if 'short_description' not in data:
+            #errors['short_description'] = (_('Short description is required'))
             raise serializers.ValidationError('Short description is required')
+
+        #if errors['short_description']:
+        #    raise serializers.ValidationError(errors)
 
         if 'pin' not in data:
             data['pin'] = '0000'
@@ -1889,6 +1898,18 @@ class EventPutDeleteSerializer(LinkedEventsSerializer, GeoModelAPIView):
         if not offer_exists:
             errors['offers'] = _('Price info must be specified before an event is published.')
 
+        # ext link cleaning
+        fields_to_clean_link = [ 'name',
+                                'link'
+        ]
+
+        for link in data.get('external_links', []):
+            for k, v in link.items():
+                if k in fields_to_clean_link:
+                    if isinstance(v, str) and any(c in v for c in '<>&'):
+                        link[k] = bleach.clean(v, settings.BLEACH_CLEAN, strip=True)
+                        link[k] = link[k].replace('&amp;', '&')
+
         if 'end_time' in data:
             end = data.get('end_time')
             #end = datetime.strptime(end, "%Y-%m-%dT%H:%M:%SZ")
@@ -2195,6 +2216,9 @@ class EventOrderingFilter(LinkedEventsOrderingFilter):
             ordering = []
         if 'duration' in ordering:
             queryset = queryset.extra(select={'duration': 'end_time - start_time'})
+        if 'multi_last' in ordering:
+            queryset = queryset.extra(select={'multi_last': 'end_time - start_time'})
+            queryset = queryset.order_by('multi_last', 'start_time')
         return queryset
 
 
@@ -2398,17 +2422,14 @@ def _filter_event_queryset(queryset, params, srs=None):
             raise InvalidMultiDayParametersException()
         queryset = queryset.filter(multi_day=val)
 
-    # filter only super or non-super events. to be deprecated?
+
+    # Filter only super or sub events if recurring has value
     val = params.get('recurring', None)
     if val:
         val = val.lower()
         if val == 'super':
-            # same as ?super_event_type=recurring
             queryset = queryset.filter(super_event_type=Event.SuperEventType.RECURRING)
         elif val == 'sub':
-            # same as ?super_event_type=none,umbrella, weirdly yielding non-sub events too.
-            # don't know if users want this to remain tho. do we want that or is there a need
-            # to change this to actually filter only subevents of recurring events?
             queryset = queryset.exclude(super_event_type=Event.SuperEventType.RECURRING)
 
     val = params.get('max_duration', None)
@@ -2510,6 +2531,7 @@ class EventFilter(django_filters.rest_framework.FilterSet):
         model = Event
         fields = ('division', 'super_event_type', 'super_event')
 
+
 class EventDeletedException(APIException):
     status_code = 410
     default_detail = 'Event has been deleted.'
@@ -2527,7 +2549,7 @@ class EventViewSet(BulkModelViewSet, JSONAPIViewSet):
     serializer_class = EventSerializer
     filter_backends = (EventOrderingFilter, django_filters.rest_framework.DjangoFilterBackend)
     filter_class = EventFilter
-    ordering_fields = ('start_time', 'end_time', 'duration', 'last_modified_time', 'name')
+    ordering_fields = ('start_time', 'end_time', 'duration', 'last_modified_time', 'name', 'multi_last')
     ordering = ('-last_modified_time',)
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES + [DOCXRenderer]
 

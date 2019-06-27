@@ -27,11 +27,11 @@ django-leaflet==0.23.0
 django-modeltranslation==0.12.2
 django-mptt<0.9
 django-reversion==2.0.13
-django==1.11.18
+django==1.11.21
 djangorestframework-bulk==0.2.1
-djangorestframework-gis==0.12
+djangorestframework-gis==0.14
 djangorestframework-jwt==1.11.0
-djangorestframework==3.7.7
+djangorestframework==3.9.2
 drf-oidc-auth==0.9        # via django-helusers
 easy-thumbnails==2.5
 elasticsearch==2.4.1
@@ -68,7 +68,7 @@ python-dateutil==2.6.1
 python-docx==0.8.6
 python3-openid==3.1.0     # via django-allauth
 pytz==2018.3
-pyyaml==3.13
+pyyaml==5.1
 raven==6.6.0
 rdflib==4.2.2
 requests-cache==0.4.13
@@ -76,7 +76,7 @@ requests-oauthlib==0.8.0  # via django-allauth
 requests==2.20.0
 six==1.11.0
 swapper==1.1.0
-urllib3==1.24.1           # via elasticsearch, requests
+urllib3==1.24.3           # via elasticsearch, requests
 webencodings==0.5.1       # via html5lib
 wrapt==1.10.11            # via astroid
 django-extra-fields==1.0.0  # Tavastia Events
