@@ -1,3 +1,5 @@
+This repository is deprecated, please refer to the new one https://github.com/hamk-uas/TavastiaEvents
+
 # Tavastia Events
 
 Mistä projektissa on kyse?
